@@ -42,34 +42,34 @@ async function append(text, prefix) {
 }
 
 module.exports = logger = {
-    info: function(text) {
+    info: function(text, logToFile) {
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         process.stdout.write(chalk.gray(`${time} [info]: `) + text + '\n')
 
-        append(time + ' [info]: ' + text, "info")
+        if (logToFile == true) append(time + ' [info]: ' + text, "info")
     },
-    success: function(text) {
+    success: function(text, logToFile) {
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         process.stdout.write(chalk.gray(`${time} [${chalk.green('success')}]: `) + text + '\n')
 
-        append(time + ' [success]: ' + text, "success")
+        if (logToFile == true) append(time + ' [success]: ' + text, "success")
     },
-    error: function(text) {
+    error: function(text, logToFile) {
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         process.stderr.write(chalk.gray(`${time} [${chalk.red('error')}]: `) + chalk.red(text) + '\n')
 
-        append(time + ' [error]: ' + text, "error")
+        if (logToFile == true) append(time + ' [error]: ' + text, "error")
     },
-    warn: function(text) {
+    warn: function(text, logToFile) {
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         process.stderr.write(chalk.gray(`${time} [${chalk.yellow('warn')}]: `) + text + '\n')
 
-        append(time + ' [warn]: ' + text, "warn")
+        if (logToFile == true) append(time + ' [warn]: ' + text, "warn")
     },
-    crash: function(text) {
+    crash: function(text, logToFile) {
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         process.stderr.write(chalk.gray(`${time} [${chalk.red('CRASH')}]: `) + text + '\n')
 
-        append(time + ' [CRASH]: ' + text, "crash")
+        if (logToFile == true) append(time + ' [CRASH]: ' + text, "crash")
     }
 }

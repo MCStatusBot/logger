@@ -1,0 +1,28 @@
+{
+    "name": "mcstatusbot-logger",
+    "version": "1.0.0",
+    "description": "a logger for the mcstatus bot",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MCStatusBot/logger.git"
+    },
+    "keywords": [
+        "minecraft",
+        "discord",
+        "logger"
+    ],
+    "author": "404invalid-user",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/MCStatusBot/logger/issues"
+    },
+    "homepage": "https://github.com/MCStatusBot/logger#readme",
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "moment": "^2.29.4"
+    }
+}

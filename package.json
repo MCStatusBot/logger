@@ -1,6 +1,6 @@
 {
     "name": "mcstatusbot-logger",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "a logger for the mcstatus bot",
     "main": "index.js",
     "scripts": {

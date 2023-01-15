@@ -8,6 +8,7 @@ let isDefaultPath = true;
 if (process.env.MCSB_LOGGER_PATH && process.env.MCSB_LOGGER_PATH != "" && process.env.MCSB_LOGGER_PATH != " ") {
     if (!fs.existsSync(path.join(__dirname, '../', process.env.MCSB_LOGGER_PATH))) {
         if (!fs.existsSync(logPath)) fs.mkdirSync(logPath);
+        let time = moment().format('YYYY-MM-DD HH:mm:ss')
         return process.stderr.write(chalk.gray(`${time} [${chalk.yellow('warn')}]: `) + "the path you provided in your env file does not exist defaulting to ./logs\n");
     }
     logPath = path.join(__dirname, '../', process.env.MCSB_LOGGER_PATH);

@@ -1,5 +1,5 @@
 # logger
-a simple logger that adds times log  type and will also add the logs to a file
+a simple logger that adds times log type and also add the logs to a file
 
 
 ### setup
@@ -41,8 +41,8 @@ require('dotenv').config();
 const logger = require('mcstatusbot-logger');
 
 
-logger.sucess("you are now using logger by 404invalid-user@mcstatusbot.site");
-logger.info("you are now using logger by 404invalid-user@mcstatusbot.site");
+logger.success("you are now using logger by@mcstatusbot.site");
+logger.info("you are now using logger by mcstatusbot.site");
 ```
 
 

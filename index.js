@@ -2,6 +2,24 @@ const fs = require("fs");
 const path = require("path");
 
 const styles = require('./styles');
+function getDate(timezone) {
+    const date = new Date();
+    const year = date.toLocaleString('en-GB', { timeZone: timezone, year: 'numeric' });
+    const month = date.toLocaleString('en-GB', { timeZone: timezone, month: 'numeric' });
+    const day = date.toLocaleString('en-GB', { timeZone: timezone, day: 'numeric' });
+    const hour = date.toLocaleString('en-GB', { timeZone: timezone, hour: 'numeric' });
+    const minute = date.toLocaleString('en-GB', { timeZone: timezone, minute: 'numeric' });
+    const second = date.toLocaleString('en-GB', { timeZone: timezone, second: 'numeric' });
+
+    return {
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second
+    }
+}
 
 const colour = {
     red: function (str) {
@@ -21,24 +39,18 @@ const colour = {
     },
 };
 function getDateTime(pathSafe) {
-    const tr = new Date();
+    const tr = getDate();
     if (pathSafe === true) {
-        return `${tr.getFullYear()}-${tr.getMonth()}-${tr.getDay()}-${tr.getHours()}-${tr.getMinutes()}-${tr.getSeconds()}`;
+        return `${tr.year}-${tr.month}-${tr.day}-${tr.hour}-${tr.minute}-${tr.second}`;
     } else {
-        return `${tr.getFullYear()}-${tr.getMonth()}-${tr.getDay()} ${tr.getHours()}:${tr.getMinutes()}:${tr.getSeconds()}`;
+        return `${tr.year}-${tr.month}-${tr.day} ${tr.hour}:${tr.minute}:${tr.second}`;
     }
 }
 
 let logPath = path.join(__dirname, "../../logs");
 let isDefaultPath = true;
-if (
-    process.env.MCSB_LOGGER_PATH &&
-    process.env.MCSB_LOGGER_PATH != "" &&
-    process.env.MCSB_LOGGER_PATH != " "
-) {
-    if (
-        !fs.existsSync(path.join(__dirname, "../../", process.env.MCSB_LOGGER_PATH))
-    ) {
+if (process.env.MCSB_LOGGER_PATH && process.env.MCSB_LOGGER_PATH != "" && process.env.MCSB_LOGGER_PATH != " ") {
+    if (!fs.existsSync(path.join(__dirname, "../../", process.env.MCSB_LOGGER_PATH))) {
         if (!fs.existsSync(logPath)) fs.mkdirSync(logPath);
 
         let time = getDateTime();
@@ -92,34 +104,25 @@ module.exports.info = function (text, logToFile) {
 };
 module.exports.success = function (text, logToFile) {
     let time = getDateTime();
-    process.stdout.write(
-        colour.grey(`${time} [${colour.green("success")}]: `) + text + "\n"
-    );
-    append(time + " [success]: " + text, "success");
-    console.log(logToFile);
+    process.stdout.write(colour.grey(`${time} [${colour.green("success")}]: `) + text + "\n");
+
     if (logToFile !== false) append(time + " [success]: " + text, "success");
 };
 module.exports.error = function (text, logToFile) {
     let time = getDateTime();
-    process.stderr.write(
-        colour.grey(`${time} [${colour.red("error")}]: `) + colour.red(text) + "\n"
-    );
+    process.stderr.write(colour.grey(`${time} [${colour.red("error")}]: `) + colour.red(text) + "\n");
 
     if (logToFile !== false) append(time + " [error]: " + text, "error");
 };
 module.exports.warn = function (text, logToFile) {
     let time = getDateTime();
-    process.stderr.write(
-        colour.grey(`${time} [${colour.yellow("warn")}]: `) + text + "\n"
-    );
+    process.stderr.write(colour.grey(`${time} [${colour.yellow("warn")}]: `) + text + "\n");
 
     if (logToFile !== false) append(time + " [warn]: " + text, "warn");
 };
 module.exports.crash = function (text, logToFile) {
     let time = getDateTime();
-    process.stderr.write(
-        colour.grey(`${time} [${colour.red("CRASH")}]: `) + text + "\n"
-    );
+    process.stderr.write(colour.grey(`${time} [${colour.red("CRASH")}]: `) + text + "\n");
 
     if (logToFile !== false) append(time + " [CRASH]: " + text, "crash");
 };
